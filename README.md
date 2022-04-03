@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# mengalir-jauh
-=======
 # mengalir-jauh
 
 ## Project setup
@@ -25,4 +22,3 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
->>>>>>> 4d2d589f84089980aacdcf8030a46dfd17682a48
