@@ -1,4 +1,4 @@
-# mengalir-sampai-jauh
+# mengalir-jauh
 
 ## Project setup
 ```
