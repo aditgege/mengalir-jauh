@@ -1,0 +1,44 @@
+<template>
+<div class="home min-h-screen max-w-2xl  mx-auto py-12 px-6">
+    <div class="mb-5 flex items-end justify-end">
+        <Navigation/>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+            <Card :height="120" width="full">
+                <template #icon>
+                    <CardIcon>
+                        <Plant className="text-[24px]" />
+                    </CardIcon>
+                </template>
+            </Card>
+        </div>
+        <div>
+            <Card :height="120" width="full">
+                <template #icon>
+                    <CardIcon color="secondary">
+                        <Fire className="text-[24px]" />
+                    </CardIcon>
+                </template>
+            </Card>
+        </div>
+    </div>
+    <div>
+        <RecentSection />
+    </div>
+</div>
+</template>
+<script setup>
+import Card from '@/components/Card.vue'
+import CardIcon from '@/components/CardIcon.vue';
+import Plant from '@/components/Icons/PlantIcon.vue';
+import Fire from '@/components/Icons/FireIcon.vue';
+import RecentSection from '@/components/RecentSection.vue';
+import Navigation from '@/components/Navigation.vue';
+import { useTransactionStore } from '@/store/transaction';
+
+
+const transaction = useTransactionStore();
+
+transaction.getTransactions();
+</script>
