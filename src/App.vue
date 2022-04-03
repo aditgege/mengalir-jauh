@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="bg-primary-dark">
+  <TransitionRoot
+    :show="loading.isLoading"
+    enter="transition-opacity ease-linear duration-200"
+    enter-from="opacity-0"
+    enter-to="opacity-100"
+    leave="transition-opacity ease-linear duration-200"
+    leave-from="opacity-100"
+    leave-to="opacity-0"
+  >
+    <MainLoading/>
+  </TransitionRoot>
+    <router-view></router-view>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import MainLoading from '@/components/Loading/MainLoading.vue'
+import { useLoadingStore } from './store';
+import { TransitionRoot } from '@headlessui/vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const loading = useLoadingStore();
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
