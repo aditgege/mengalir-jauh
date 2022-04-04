@@ -5,14 +5,14 @@
         <div>
             <text-field
                 label="username"
-                v-model="request.identifier"
+                v-model="identifier"
             />
 
             <text-field
                 class="mt-3"
                 type="password"
                 label="password"
-                v-model="request.password"
+                v-model="password"
             />
         </div>
         <div class="flex justify-between  w-full mt-5">
@@ -37,11 +37,8 @@ import { useLoadingStore } from '@/store/index'
 const router = useRouter();
 const store = useAuth();
 const loading = useLoadingStore();
-
-const request = ref({
-    identifier: 'adit@mamail.com',
-    password: 'DitaburiWijen00'
-})
+const identifier = ref('');
+const password = ref('');
 const $axios = inject('$axios');
 const registerPage = () => {
     router.push({ name: 'Register' })
@@ -50,7 +47,10 @@ const onlogin = async () => {
     loading.$patch({
         isLoading: true
     })
-    await $axios.post('/auth/local' , request.value)
+    await $axios.post('/auth/local' ,{
+        identifier: identifier.value,
+        password: password.value
+    })
     .then(res => {
         localStorage.setItem('isAuthenticated', true)
         localStorage.setItem('token', res.data.jwt)

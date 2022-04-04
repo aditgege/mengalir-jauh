@@ -5,20 +5,20 @@
         <div>
             <text-field
                 label="Username"
-                v-model="request.username"
+                v-model="username"
             />
 
             <text-field
                 class="mt-3"
                 label="Email"
-                v-model="request.email"
+                v-model="email"
             />
 
             <text-field
                 class="mt-3"
                 type="password"
                 label="password"
-                v-model="request.password"
+                v-model="password"
             />
         </div>
         <div class="flex justify-between w-full mt-5">
@@ -36,21 +36,22 @@
 </template>
 <script setup>
 import { ref, inject } from 'vue';
-// import { useRouter } from 'vue-router';
 import TextField from '@/components/Form/TexField.vue';
 
+const username = ref('');
+const email = ref('');
+const password = ref('');
 
-// const router = useRouter();
-const request = ref({
-    username: 'admin',
-    email: 'adit@mamail.com',
-    password: 'DitaburiWijen00'
-})
+
 const $axios = inject('$axios');
 const onRegis = async () => {
     // localStorage.setItem('isAuthenticated', true)
     // // router.push('/')
-    await $axios.post('/auth/local/register' , request.value)
+    await $axios.post('/auth/local/register' , {
+        username: username.value,
+        email: email.value,
+        password: password.value
+    })
     .then(res => {
         console.log(res)
     })
