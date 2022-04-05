@@ -28,26 +28,26 @@
 </template>
 <script setup>
 import TextField from '@/components/Form/TexField.vue';
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuth } from '@/store/auth';
-import { useLoadingStore } from '@/store/index'
+import { useCommonStore } from '@/store/index'
+import axios from '@/middleware'
 
 
 const router = useRouter();
 const store = useAuth();
-const loading = useLoadingStore();
+const commonStore = useCommonStore();
 const identifier = ref('');
 const password = ref('');
-const $axios = inject('$axios');
 const registerPage = () => {
     router.push({ name: 'Register' })
 }
 const onlogin = async () => {
-    loading.$patch({
+    commonStore.$patch({
         isLoading: true
     })
-    await $axios.post('/auth/local' ,{
+    await axios.post('/auth/local' ,{
         identifier: identifier.value,
         password: password.value
     })
@@ -60,13 +60,16 @@ const onlogin = async () => {
             token: res.data.jwt
         })
 
-        loading.$patch({
+        commonStore.$patch({
             isLoading: false
         })
 
         router.push('/')
     })
     .catch(err => {
+        commonStore.$patch({
+            isLoading: false
+        })
         console.log(err)
     })
 }

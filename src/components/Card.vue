@@ -4,7 +4,7 @@
             <slot name="icon"></slot>
         </div>
         <div class="flex justify-end items-center w-full">
-            <h1 class="text-primary-dark font-bold text-4xl">Rp.{{  props.text }}</h1>
+            <h1 class="text-primary-dark font-bold text-2xl">Rp.{{  props.amount }}</h1>
         </div>
     </div>
 </template>
@@ -23,9 +23,9 @@
         type: String,
         default: ''
     },
-    text: {
-        type: String,
-        default: '20000'
+    amount: {
+        type: Number,
+        default: 0  
     },
  })
  const currentHeight = computed(() => {

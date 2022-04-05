@@ -35,19 +35,17 @@
  </div>
 </template>
 <script setup>
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
 import TextField from '@/components/Form/TexField.vue';
-
+import axios from '@/middleware';
 const username = ref('');
 const email = ref('');
 const password = ref('');
 
-
-const $axios = inject('$axios');
 const onRegis = async () => {
     // localStorage.setItem('isAuthenticated', true)
     // // router.push('/')
-    await $axios.post('/auth/local/register' , {
+    await axios.post('/auth/local/register' , {
         username: username.value,
         email: email.value,
         password: password.value

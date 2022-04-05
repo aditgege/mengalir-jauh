@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { getUser } from '@/api/user.api'
 
 export const useAuth = defineStore({
     id: 'auth',
@@ -14,6 +15,16 @@ export const useAuth = defineStore({
     },
 
     actions: {
+        async getUserLogedIn(){
+            await getUser()
+            .then(res => {
+                this.user = res.data
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+    
         loggedIn({commit}) {
             commit('setIsAuthenticated', this.isAuthenticated)
             commit('setUser', this.user)

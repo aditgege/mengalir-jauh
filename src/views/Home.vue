@@ -5,7 +5,7 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div>
-            <Card :height="120" width="full">
+            <Card @click="router.push({ name: 'AddIncome'})" :amount="transactionStore.totalIncome" :height="120" width="full">
                 <template #icon>
                     <CardIcon>
                         <Plant className="text-[24px]" />
@@ -14,7 +14,7 @@
             </Card>
         </div>
         <div>
-            <Card :height="120" width="full">
+            <Card @click="router.push({ name: 'AddIncome'})" :amount="transactionStore.totalOutCome" :height="120" width="full">
                 <template #icon>
                     <CardIcon color="secondary">
                         <Fire className="text-[24px]" />
@@ -36,9 +36,14 @@ import Fire from '@/components/Icons/FireIcon.vue';
 import RecentSection from '@/components/RecentSection.vue';
 import Navigation from '@/components/Navigation.vue';
 import { useTransactionStore } from '@/store/transaction';
+import { useAuth } from '@/store/auth';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const authStore = useAuth();
+const transactionStore = useTransactionStore();
 
-const transaction = useTransactionStore();
+authStore.getUserLogedIn();
+transactionStore.get();
 
-transaction.getTransactions();
 </script>

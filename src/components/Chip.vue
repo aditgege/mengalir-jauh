@@ -1,19 +1,15 @@
 <template>
-    <div class="rounded-md rounded-t-none shadow-md p-4 font-semibold absolute w-auto flex top-0 right-0 left-0  h-auto " :class="className">
-        <slot>
-            <span :class="className">
-                {{ text }}
-            </span>
-        </slot>
-    </div>
+<div class="rounded-md px-2 py-1 font-semibold" :class="className">
+    <slot></slot>
+</div>
 </template>
 <script setup>
 import { defineProps, computed } from 'vue';
 
 const props = defineProps({
-    text: {
+    placeholder: {
         type: String,
-        default: 'message'
+        default: ''
     },
     type: {
         type: String,
@@ -24,7 +20,7 @@ const props = defineProps({
 
 const className = computed(() => {
     if (props.type === 'success') {
-        return 'bg-primary-lightest-4 text-primary-dark'
+        return 'bg-primary-lightest-3 text-primary-dark'
     }else if (props.type === 'info') {
         return 'bg-blue-200 text-blue-800'
     }else if (props.type === 'warning') {

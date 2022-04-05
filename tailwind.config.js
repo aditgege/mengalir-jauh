@@ -1,17 +1,13 @@
+/* eslint-disable no-undef */
 // tailwind.config.js
+
+const path = require('path');
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-//   #258000
-// #258000
-// #8EBF00
-// #D4DF00
-// #FBD303
-// #FFB222
-// #FF9B44
-// #FF8E66
-// #FF8E88
-// #FFAAAD
-// #FFCCD8
+  purge: [
+    './index.html', 
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+    path.resolve(__dirname, './node_modules/litepie-datepicker/**/*.js')
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -39,7 +35,9 @@ module.exports = {
         'secondary-lightest-5': '#FF8E88',
         'secondary-lightest-6': '#FFAAAD',
         'secondary-lightest-7': '#FFCCD8',
-        
+        'litepie-primary': '#0A2F51',
+        'litepie-primary-500': '#0A2F51',
+        'litepie-secondary': '#258000',
         
 
       }

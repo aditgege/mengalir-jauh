@@ -24,32 +24,35 @@
 
       <TabPanels class="mt-2">
         <TabPanel
-          v-for="(posts, idx) in Object.values(categories)"
+          v-for="(transactions, idx) in Object.values(categories)"
           :key="idx"
           :class="[
             'bg-white rounded-xl p-3',
             'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-primary ring-primary-lighter  ring-opacity-60',
           ]"
         >
-          <ul>
+          <ul v-if="transactions.length > 0">
             <li
-              v-for="post in posts"
-              :key="post.id"
-              class="relative p-3 rounded-md hover:bg-coolGray-100"
+              v-for="transaction in transactions"
+              :key="transaction.id"
+              class="relative flex justify-between p-3 rounded-md hover:bg-coolGray-100"
             >
-              <h3 class="text-sm font-medium leading-5">
-                {{ post.title }}
-              </h3>
+              <div>
+                <h3 class="text-sm font-medium leading-5">
+                {{ transaction.name }}
+                </h3>
 
-              <ul
-                class="flex mt-1 space-x-1 text-xs font-normal leading-4 text-coolGray-500"
-              >
-                <li>{{ post.date }}</li>
-                <li>&middot;</li>
-                <li>{{ post.commentCount }} comments</li>
-                <li>&middot;</li>
-                <li>{{ post.shareCount }} shares</li>
-              </ul>
+                <ul
+                  class="flex mt-1 space-x-1 text-xs font-normal leading-4 text-coolGray-500"
+                >
+                  <li>{{ useDateFormat(transaction.date) }}</li>
+                </ul>
+              </div>
+              <div>
+                <Chip :type="!transaction.isIncome ? 'danger': 'success'">
+                  {{ transaction.amount}}
+                </Chip>
+              </div>
 
               <a
                 href="#"
@@ -60,6 +63,7 @@
               />
             </li>
           </ul>
+          <span v-else>Belum ada transaksi...</span>
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -68,56 +72,18 @@
 
 <script setup>
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { useTransactionStore } from '@/store/transaction';
+import useDateFormat from '@/composables/useDateFormat'
+import Chip from '@/components/Chip.vue'
+const transactionStore = useTransactionStore();
+const { allTransaction, incomeTransaction, outComeTransaction } = storeToRefs(transactionStore);
 
 const categories = ref({
-  Semua: [
-    {
-      id: 1,
-      title: 'Does drinking coffee make you smarter?',
-      date: '5h ago',
-      commentCount: 5,
-      shareCount: 2,
-    },
-    {
-      id: 2,
-      title: "So you've bought coffee... now what?",
-      date: '2h ago',
-      commentCount: 3,
-      shareCount: 2,
-    },
-  ],
-  Pemasukan: [
-    {
-      id: 1,
-      title: 'Is tech making coffee better or worse?',
-      date: 'Jan 7',
-      commentCount: 29,
-      shareCount: 16,
-    },
-    {
-      id: 2,
-      title: 'The most innovative things happening in coffee',
-      date: 'Mar 19',
-      commentCount: 24,
-      shareCount: 12,
-    },
-  ],
-  Pengeluaran: [
-    {
-      id: 1,
-      title: 'Ask Me Anything: 10 answers to your questions about coffee',
-      date: '2d ago',
-      commentCount: 9,
-      shareCount: 5,
-    },
-    {
-      id: 2,
-      title: "The worst advice we've ever heard about coffee",
-      date: '4d ago',
-      commentCount: 1,
-      shareCount: 2,
-    },
-  ],
+  Terakhir: allTransaction,
+  Pemasukan: incomeTransaction,
+  Pengeluaran: outComeTransaction
 })
+
 </script>

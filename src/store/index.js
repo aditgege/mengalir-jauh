@@ -1,28 +1,21 @@
 import { defineStore } from 'pinia'
-
-export const useCounterStore = defineStore('counter', {
-  state: () => ({ count: 0 }),
-  getters: {
-    double: state => state.count * 2,
-  },
-  actions: {
-    increment() {
-      this.count++
-    },
-  },
-})
-
-
-export const useLoadingStore = defineStore('loading', {
+export const useCommonStore = defineStore('common', {
   state: () => ({
     isLoading: false,
+    toast: {
+      show: false,
+      message: '',
+      type: 'success',
+    }
   }),
   actions: {
     startLoading({ state }) {
-      this.isLoading = true
       this.$patch({
         isLoading: state,
       })
+    },
+    showToast(params) {
+      this.toast = params
     },
   }
 })
