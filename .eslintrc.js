@@ -1,7 +1,4 @@
 module.exports = {
-    parserOptions: {
-        "parser": "@babel/eslint-parser"
-    },
     extends: [
         "plugin:vue/vue3-essential",
         "eslint:recommended",
@@ -9,6 +6,8 @@ module.exports = {
     ],
     rules: {
         "vue/multi-word-component-names": "off",
-
+    },
+    env: {
+        es2021: true,
     }
 }

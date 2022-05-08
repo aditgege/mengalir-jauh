@@ -3,9 +3,9 @@
   <div class="flex flex-col">
     <span class="mb-2 text-lg text-primary-lighter">Tanggal</span>
     <litepie-datepicker
-      :pickerValue="modelValue"
+      :pickerValue="dateValue"
+      :modelValue="dateValue"
       as-single
-      placeholder="DD/MM/YYYY"
       v-slot="{ value, placeholder, clear }"
       @update:modelValue="onInput"
     >
@@ -13,9 +13,9 @@
         <div class="flex-1">
           <button
             type="button"
-            class="w-full px-2 bg-gray-50 text-primary-light hover:text-gray-900 leading-6 py-2 sm:px-6 border-2 border-primary-lighter rounded-md flex items-left justify-left space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
+            class="flex w-full px-2 py-2 space-x-2 leading-6 transition duration-300 ease-out border-2 rounded-md bg-gray-50 text-primary-light hover:text-gray-900 sm:px-3 border-primary-lighter items-left justify-left sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none"
           >
-            <span class="text-primary-lighter text-left">
+            <span class="text-left text-primary-lighter">
               {{ value || placeholder }}
             </span>
           </button>
@@ -23,7 +23,7 @@
         <div class="flex-shrink-0">
           <button
             type="button"
-            class="ml-4 block px-3 flex-none bg-indigo-50 text-primary-dark hover:text-primary-lighter leading-6 py-2 sm:px-6 border-2 border-primary-lighter rounded-md flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-300 focus:outline-none transition ease-out duration-300"
+            class="flex items-center justify-center flex-none px-3 py-2 ml-4 space-x-2 leading-6 transition duration-300 ease-out border-2 rounded-md bg-indigo-50 text-primary-dark hover:text-primary-lighter sm:px-6 border-primary-lighter sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-300 focus:outline-none"
             @click="clear"
           >
             <svg
@@ -48,15 +48,18 @@
 </template>
 
 <script setup>
-    import { defineProps, defineEmits } from 'vue';
+    import { defineProps, defineEmits, computed } from 'vue';
     import LitepieDatepicker from 'litepie-datepicker';
 
-    // eslint-disable-next-line no-unused-vars
     const props = defineProps({
       modelValue: {
-        type: String,
-        default: '',
+        type: Date,
+        default: [new Date()],
       },
+    })
+
+    const dateValue = computed(() => {
+      return [props.modelValue]
     })
 
     const emit = defineEmits(['update:modelValue'])

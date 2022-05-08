@@ -1,8 +1,7 @@
 <template>
-
-    <div class="min-h-screen max-w-2xl  mx-auto py-12 px-6">
-        <div class="bg-white w-full rounded-md shadow-md p-6 h-auto">
-            <h1 class="text-3xl text-primary-dark font-bold mb-6 border-l-2 px-3 border-1 border-primary-light">Tambah Pendapatan</h1>
+    <div class="max-w-2xl min-h-screen px-6 py-12 mx-auto">
+        <div class="w-full h-auto p-6 bg-white rounded-md shadow-md">
+            <h1 class="px-3 mb-6 text-3xl font-bold border-l-2 text-primary-dark border-1 border-primary-light">Tambah Pemasukan</h1>
             <div class="flex flex-col">
                 <text-field
                     label="Nama Pemasukan"
@@ -14,16 +13,14 @@
                     v-model="request.amount"
                 />
 
-                <date-picker :model-value="request.date" @update:modelValue="newVal => request.date = newVal">
-
-                </date-picker>
+                <date-picker :model-value="request.date" @update:modelValue="newVal => request.date = newVal"/>
                 
             </div>
-            <div class="flex justify-end  w-full mt-5">
-                <button @click="router.push('/')" class="bg-secondary-lightest-2 px-4 py-2 mr-2 text-primary-dark rounded-md">
+            <div class="flex justify-end w-full mt-5">
+                <button @click="router.push('/')" class="px-4 py-2 mr-2 rounded-md bg-secondary-lightest-2 text-primary-dark">
                     Kembali
                 </button>
-                <button @click="save" class="bg-primary-light px-4 py-2 text-white rounded-md">
+                <button @click="save" class="px-4 py-2 text-white rounded-md bg-primary-light">
                     Simpan
                 </button>
             </div>
@@ -32,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {  ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCommonStore } from '@/store';
 import { createTransaction } from '@/api/transaction.api';
@@ -45,9 +42,14 @@ const commonStore = useCommonStore();
 const request = ref({
     name: '',
     amount: 0,
-    date: null,
-    isIncove: true
+    date: new Date(),
+    isIncome: true
 })
+
+onMounted(() => {
+    request.value.date = new Date();
+});
+
 const save = async () => {
     await createTransaction(request.value)
     .then(res => {

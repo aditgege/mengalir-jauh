@@ -4,27 +4,27 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    component: () => import('../views/Home.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),  
+    component: () => import('../views/Login.vue'),  
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue'),
+    component: () => import('../views/Register.vue'),
   },
   {
     path: '/add-income',
     name: 'AddIncome',
-    component: () => import(/* webpackChunkName: "add-income" */ '../views/AddIncome.vue'),
+    component: () => import('../views/AddIncome.vue'),
   },
   {
     path: '/add-outcome',
     name: 'AddOutcome',
-    component: () => import(/* webpackChunkName: "add-expense" */ '../views/AddOutcome.vue'),
+    component: () => import('../views/AddOutcome.vue'),
   },
 ]
 
@@ -33,7 +33,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
   if (to.name !== 'Login' && to.name !== 'Register' && !isAuthenticated) {
     next('/login')

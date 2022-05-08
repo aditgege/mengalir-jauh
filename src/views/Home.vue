@@ -1,9 +1,9 @@
 <template>
-<div class="home min-h-screen max-w-2xl  mx-auto py-12 px-6">
-    <div class="mb-5 flex items-end justify-end">
+<div class="max-w-2xl min-h-screen px-6 py-12 mx-auto home">
+    <div class="flex items-end justify-end mb-5">
         <Navigation/>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div>
             <Card @click="router.push({ name: 'AddIncome'})" :amount="transactionStore.totalIncome" :height="120" width="full">
                 <template #icon>
@@ -14,7 +14,7 @@
             </Card>
         </div>
         <div>
-            <Card @click="router.push({ name: 'AddIncome'})" :amount="transactionStore.totalOutCome" :height="120" width="full">
+            <Card @click="router.push({ name: 'AddOutcome'})" :amount="transactionStore.totalOutCome" :height="120" width="full">
                 <template #icon>
                     <CardIcon color="secondary">
                         <Fire className="text-[24px]" />

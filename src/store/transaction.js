@@ -35,13 +35,19 @@ export const useTransactionStore = defineStore('transaction', {
       return total
     },
     allTransaction: state => {
-      return state.transaction
+      return state.transaction.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date)
+      })
     },
     incomeTransaction: state => {
-      return state.transaction.filter(item => item.isIncome === true)
+      return state.transaction.filter(item => item.isIncome === true).sort((a, b) => {
+        return new Date(b.date) - new Date(a.date)
+      })
     },
     outComeTransaction: state => {
-      return state.transaction.filter(item => item.isIncome === false)
+      return state.transaction.filter(item => item.isIncome === false).sort((a, b) => {
+        return new Date(b.date) - new Date(a.date)
+      })
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
- <div class="login  min-h-screen max-w-lg flex items-center justify-center  mx-auto py-12 px-6">
-    <div class="bg-white w-full rounded-md shadow-md p-6 h-auto">
-        <h1 class="text-3xl text-primary-dark font-bold mb-6 border-l-2 px-3 border-1 border-primary-light">Login</h1>
+ <div class="flex items-center justify-center max-w-lg min-h-screen px-6 py-12 mx-auto login">
+    <div class="w-full h-auto p-6 bg-white rounded-md shadow-md">
+        <h1 class="px-3 mb-6 text-3xl font-bold border-l-2 text-primary-dark border-1 border-primary-light">Login</h1>
         <div>
             <text-field
                 label="username"
@@ -15,11 +15,11 @@
                 v-model="password"
             />
         </div>
-        <div class="flex justify-between  w-full mt-5">
+        <div class="flex justify-between w-full mt-5">
             <small @click="registerPage" class="font-[0.5em] text-primary-light cursor-pointer  font-bold">
                 Daftar disini
             </small>
-            <button @click="onlogin" class="bg-primary-light px-4 py-2 text-white rounded-md">
+            <button @click="onlogin" class="px-4 py-2 text-white rounded-md bg-primary-light">
                 Login
             </button>
         </div>
@@ -69,6 +69,12 @@ const onlogin = async () => {
     .catch(err => {
         commonStore.$patch({
             isLoading: false
+        })
+
+        commonStore.showToast({
+            message: 'password atau username salah',
+            type: 'error',
+            show: true
         })
         console.log(err)
     })

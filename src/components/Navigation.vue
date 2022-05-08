@@ -79,6 +79,7 @@ const store = useAuth()
 
 const logout = () => {
   localStorage.removeItem('isAuthenticated')
+  localStorage.removeItem('token')
   store.$reset()
   router.push('/login')
 }

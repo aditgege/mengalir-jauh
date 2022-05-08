@@ -50,7 +50,7 @@
               </div>
               <div>
                 <Chip :type="!transaction.isIncome ? 'danger': 'success'">
-                  {{ transaction.amount}}
+                  {{ usePriceFormat(transaction.amount)}}
                 </Chip>
               </div>
 
@@ -76,12 +76,13 @@ import { storeToRefs } from 'pinia';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { useTransactionStore } from '@/store/transaction';
 import useDateFormat from '@/composables/useDateFormat'
+import usePriceFormat from '@/composables/usePriceFormat';
 import Chip from '@/components/Chip.vue'
 const transactionStore = useTransactionStore();
 const { allTransaction, incomeTransaction, outComeTransaction } = storeToRefs(transactionStore);
 
 const categories = ref({
-  Terakhir: allTransaction,
+  Semua: allTransaction,
   Pemasukan: incomeTransaction,
   Pengeluaran: outComeTransaction
 })
