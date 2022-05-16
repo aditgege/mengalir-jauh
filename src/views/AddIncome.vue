@@ -13,7 +13,19 @@
                     v-model="request.amount"
                 />
 
-                <date-picker :model-value="request.date" @update:modelValue="newVal => request.date = newVal"/>
+                <div class="flex my-3">
+                    <div class="flex items-center">
+                        <input class="mr-3" type="radio" :checked="radio == 'pendapatan'" id="one" value="pendapatan" v-model="radio" />
+                        <label for="one">Pendapatan</label>
+                    </div>
+                    <div class="flex items-center ml-3">
+                        <input class="mr-3" type="radio" :checked="radio == 'pengeluaran'" id="two" value="pengeluaran" v-model="radio" />
+                        <label for="two">Pengeluaran</label>
+                    </div>
+                </div>
+
+
+                <date-picker :model-value="request.datetime" @update:modelValue="newVal => request.date = newVal"/>
                 
             </div>
             <div class="flex justify-end w-full mt-5">
@@ -42,16 +54,18 @@ const commonStore = useCommonStore();
 const request = ref({
     name: '',
     amount: 0,
-    date: new Date(),
+    datetime: new Date(),
     isIncome: true
 })
+
+const radio = ref('pendapatan')
 
 onMounted(() => {
     request.value.date = new Date();
 });
 
 const save = async () => {
-    await createTransaction(request.value)
+    await createTransaction({ ...request.value, isIncome: radio.value == 'pendapatan' ? true : false })
     .then(res => {
         console.log(res)
         router.push({ name: 'Home' })

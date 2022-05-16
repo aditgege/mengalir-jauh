@@ -4,5 +4,6 @@ const user = localStorage.getItem('token')
 
 export function getUser ()
 {
-    return axios.get('users/me', { headers: { Authorization: `Bearer ${user}` } })
+    
+    return axios.get(`users/me`, { headers: { Authorization: `Bearer ${user}` } })
 }

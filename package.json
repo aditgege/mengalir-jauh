@@ -20,6 +20,7 @@
     "litepie-datepicker": "^1.0.14",
     "mande": "^2.0.1",
     "pinia": "^2.0.12",
+    "qs": "^6.10.3",
     "vite": "^2.5.4",
     "vue": "^3.2.13",
     "vue-router": "4"

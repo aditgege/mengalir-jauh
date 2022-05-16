@@ -34,6 +34,7 @@
                   active ? 'bg-primary-dark text-white' : 'text-gray-900',
                   'group flex rounded-md items-center w-full px-2 py-2 text-sm',
                 ]"
+                @click="getUserInfo"
               >
                 <PeopleIcon
                   :active="active"
@@ -70,6 +71,9 @@
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { useRouter } from 'vue-router';
 import { useAuth } from '@/store/auth';
+import { getUser } from '@/api/user.api';
+
+
 
 import MenuIcon from '@/components/Icons/MenuIcon.vue'
 import LogoutIcon from '@/components/Icons/LogoutIcon.vue'
@@ -82,5 +86,12 @@ const logout = () => {
   localStorage.removeItem('token')
   store.$reset()
   router.push('/login')
+}
+
+const getUserInfo = async () => {
+  await getUser()
+  .then(res => {
+    console.log(res.data)
+  })
 }
 </script>
